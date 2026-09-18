@@ -1,0 +1,13 @@
+FANEVA SYSTEM 1.4.9.16 — PHASE 2.1 SECURITY & PRODUCTION HARDENING
+==================================================================
+Durcissements :
+  - HTTPS obligatoire pour endpoints distants (http local autorisé)
+  - Provider HTTP disabled by default
+  - Clé API absente → aucun réseau
+  - Redaction clés API / Bearer / sk- / AIza dans erreurs et réponses
+  - Anti prompt-injection (system prompt + sanitization question)
+  - Scrub des fuites éventuelles dans les réponses modèle
+  - Pas de stockage clé API en SQLite
+  - MANIFEST_SHA256 régénéré sans APK fantôme
+
+Tests : 100 PASS (53 + 20 + 13 + 14 security)

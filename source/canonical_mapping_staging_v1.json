@@ -1,0 +1,1552 @@
+{
+  "format": "FANEVA_CANONICAL_MAPPING_MANIFEST",
+  "format_version": 1,
+  "mapping_version": "2026-08-26-quincaillerie-v1",
+  "environment": "STAGING_ONLY",
+  "scope": {
+    "magasin_id": 1,
+    "magasin_cle": "quincaillerie"
+  },
+  "approval": {
+    "basis": "USER_CONFIRMED_47_QUINCAILLERIE_PAIRS",
+    "automatic_name_merge": false,
+    "inter_store_merge": false,
+    "ventouse_pairs": "USER_CONFIRMED_BY_STOCK_PAIRING_42_TO_42_AND_31_TO_31"
+  },
+  "source_exports": [
+    {
+      "label": "A1_20260824T181410Z",
+      "sha256": "a218c5c02ca19c76878af06481f88da0c70e6f06f90ea01ccbe323c53049d27f"
+    },
+    {
+      "label": "A2_20260824T190450Z",
+      "sha256": "54abbb55f2308e3f4facca74db538b2437b76754b69f3e60c8cd4e6dfaf2d7b0"
+    }
+  ],
+  "canonical_uuid_algorithm": {
+    "namespace_uuid": "e74cd19e-863f-5464-aaf6-993e5a450054",
+    "method": "UUIDv5(faneva:canonical:magasin:1:pair:sorted-source-uuids)"
+  },
+  "initial_stock_rule": {
+    "source": "MIGRATION_INITIAL_STOCK",
+    "deduplication": "For each confirmed pair, identical A1/A2 baseline seeds become one canonical seed; non-seed movements remain individually traceable.",
+    "source_uuid_retained": true,
+    "historical_transactions_rewritten": false
+  },
+  "summary": {
+    "total": 47,
+    "target_resolved": 47,
+    "stock_different": 3,
+    "proposed_user_confirmed_ambiguity": 2,
+    "source_a1_sha256": "a218c5c02ca19c76878af06481f88da0c70e6f06f90ea01ccbe323c53049d27f",
+    "source_a2_sha256": "54abbb55f2308e3f4facca74db538b2437b76754b69f3e60c8cd4e6dfaf2d7b0"
+  },
+  "pairs": [
+    {
+      "nom": "atf",
+      "categorie": "General",
+      "prix_achat": 11000,
+      "prix_vente": 15000,
+      "a1_uuid": "7be1197b-4fc6-416c-8269-c6e8b03788da",
+      "a2_uuid": "d5a1b669-8911-4d9a-9dae-330064941672",
+      "canonical_proposed": "c07cdc89-9782-5fa0-b6cb-e0a03dcdeeec",
+      "a1_stock": 1,
+      "a2_stock": 2,
+      "baseline_stock": 3,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "631e3890-32a4-481c-ae48-0fbffc869317",
+          "source_product_uuid": "d5a1b669-8911-4d9a-9dae-330064941672",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "c094b06f-a3a2-43ac-a655-f759d7010686",
+          "source_product_uuid": "7be1197b-4fc6-416c-8269-c6e8b03788da",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [
+        {
+          "source_transaction_id": "547041ff-e9f6-48d3-81b0-c3e08ffeb2e3",
+          "quantity_delta": -1,
+          "source": "VENTE",
+          "occurred_at": "2026-08-23T16:47:06Z",
+          "source_product_uuids": [
+            "7be1197b-4fc6-416c-8269-c6e8b03788da"
+          ]
+        },
+        {
+          "source_transaction_id": "93e37336-1bcc-4d4e-a042-cc323d0b425f",
+          "quantity_delta": -1,
+          "source": "VENTE",
+          "occurred_at": "2026-08-20T05:09:19Z",
+          "source_product_uuids": [
+            "7be1197b-4fc6-416c-8269-c6e8b03788da"
+          ]
+        },
+        {
+          "source_transaction_id": "fca228be-d503-45a9-b47c-f6413d1c6d59",
+          "quantity_delta": -1,
+          "source": "VENTE",
+          "occurred_at": "2026-08-23T16:57:15Z",
+          "source_product_uuids": [
+            "d5a1b669-8911-4d9a-9dae-330064941672"
+          ]
+        }
+      ],
+      "target_stock": 0,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "bande collante",
+      "categorie": "General",
+      "prix_achat": 2167,
+      "prix_vente": 4000,
+      "a1_uuid": "74eec7bb-2c7a-4320-944f-3d736f199cc3",
+      "a2_uuid": "c4b3fb05-50d1-414d-b4dc-72a2745ba3c2",
+      "canonical_proposed": "e64ddc12-0705-5ac7-96b3-8abcf3e7b6b6",
+      "a1_stock": 14,
+      "a2_stock": 14,
+      "baseline_stock": 14,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "51b1b36a-2e2e-4aec-a824-af4f7c544342",
+          "source_product_uuid": "74eec7bb-2c7a-4320-944f-3d736f199cc3",
+          "quantity_delta": 14,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "fbb54da5-58d1-4139-87ac-947388661db3",
+          "source_product_uuid": "c4b3fb05-50d1-414d-b4dc-72a2745ba3c2",
+          "quantity_delta": 14,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 14,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "bande collante mini",
+      "categorie": "General",
+      "prix_achat": 500,
+      "prix_vente": 1000,
+      "a1_uuid": "48335fbf-5fca-41a5-82d9-edd5d41a3681",
+      "a2_uuid": "ed4ec41a-6606-4c79-bf13-9edea15a7167",
+      "canonical_proposed": "e716b94e-d69c-54fe-85b6-a59403b908dc",
+      "a1_stock": 28,
+      "a2_stock": 28,
+      "baseline_stock": 28,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "98cf1267-9a12-4e86-9631-11c88491f930",
+          "source_product_uuid": "ed4ec41a-6606-4c79-bf13-9edea15a7167",
+          "quantity_delta": 28,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "d0e089ca-0565-45f4-aa9a-ce661b773ce0",
+          "source_product_uuid": "48335fbf-5fca-41a5-82d9-edd5d41a3681",
+          "quantity_delta": 28,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 28,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "barnadere at7",
+      "categorie": "General",
+      "prix_achat": 1100,
+      "prix_vente": 2500,
+      "a1_uuid": "1a3491cf-038e-4e5a-a53d-327b7c70e9d5",
+      "a2_uuid": "f5954883-831e-4019-8b1d-9691856f91d6",
+      "canonical_proposed": "0295639b-b19e-5843-8f63-ae1a1c98a51f",
+      "a1_stock": 14,
+      "a2_stock": 14,
+      "baseline_stock": 14,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "bd2ec97b-6eaf-48b5-b291-68d8a34f5174",
+          "source_product_uuid": "1a3491cf-038e-4e5a-a53d-327b7c70e9d5",
+          "quantity_delta": 14,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "cc862363-e7aa-4e34-8ab5-2bd62d30dab6",
+          "source_product_uuid": "f5954883-831e-4019-8b1d-9691856f91d6",
+          "quantity_delta": 14,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 14,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "bombe blanc",
+      "categorie": "General",
+      "prix_achat": 5000,
+      "prix_vente": 7000,
+      "a1_uuid": "435bc936-f9e1-445e-b8ca-f59958b8d51f",
+      "a2_uuid": "4c028dff-d90b-47bd-8843-7386d2d8b644",
+      "canonical_proposed": "2b804d12-7990-5ec9-92a6-aed0d977504d",
+      "a1_stock": 6,
+      "a2_stock": 7,
+      "baseline_stock": 7,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "5b3d0b1f-f1a6-460c-9a33-13ca88724411",
+          "source_product_uuid": "435bc936-f9e1-445e-b8ca-f59958b8d51f",
+          "quantity_delta": 7,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "6ddac645-b675-4e43-85bc-bc7bc2fde26b",
+          "source_product_uuid": "4c028dff-d90b-47bd-8843-7386d2d8b644",
+          "quantity_delta": 7,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [
+        {
+          "source_transaction_id": "b1bf6965-0ca1-4219-983e-190b59801a2e",
+          "quantity_delta": -1,
+          "source": "VENTE",
+          "occurred_at": "2026-08-23T17:13:12Z",
+          "source_product_uuids": [
+            "435bc936-f9e1-445e-b8ca-f59958b8d51f"
+          ]
+        }
+      ],
+      "target_stock": 6,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "bombe bleu ciel",
+      "categorie": "General",
+      "prix_achat": 5000,
+      "prix_vente": 7000,
+      "a1_uuid": "3a8fe0d0-eb07-4690-9572-cf72c8a44c21",
+      "a2_uuid": "346f0089-3b50-4bd2-85df-93408763fb42",
+      "canonical_proposed": "0edef489-59f3-54b3-9f08-296801eb0fa0",
+      "a1_stock": 2,
+      "a2_stock": 2,
+      "baseline_stock": 2,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "0b352e34-6808-41a5-8f24-e77936c73fdc",
+          "source_product_uuid": "346f0089-3b50-4bd2-85df-93408763fb42",
+          "quantity_delta": 2,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "f69e608e-6610-4560-adc0-d5fe3ce0d97c",
+          "source_product_uuid": "3a8fe0d0-eb07-4690-9572-cf72c8a44c21",
+          "quantity_delta": 2,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 2,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "bombe gris",
+      "categorie": "General",
+      "prix_achat": 5000,
+      "prix_vente": 7000,
+      "a1_uuid": "681b2594-f909-41f6-80a9-28ff5842bbc3",
+      "a2_uuid": "d8940c63-e631-402d-abe6-1035563680d8",
+      "canonical_proposed": "f5597de4-2b59-567f-a111-3ff4aafaeac7",
+      "a1_stock": 6,
+      "a2_stock": 6,
+      "baseline_stock": 6,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "2c1c46a1-cfb3-43e2-a83d-639499bfbd00",
+          "source_product_uuid": "d8940c63-e631-402d-abe6-1035563680d8",
+          "quantity_delta": 6,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "f4f8d435-5071-4d75-a9e5-52408ed18ef7",
+          "source_product_uuid": "681b2594-f909-41f6-80a9-28ff5842bbc3",
+          "quantity_delta": 6,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 6,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "bombe rouge",
+      "categorie": "General",
+      "prix_achat": 5000,
+      "prix_vente": 7000,
+      "a1_uuid": "136cbf78-0958-43dd-aa42-862ee68cf42c",
+      "a2_uuid": "9e6f4f55-a1ac-4180-b8c4-fbb41ef4c61b",
+      "canonical_proposed": "6a6004fe-3b29-56c2-9c5a-0a7bc80aca28",
+      "a1_stock": 3,
+      "a2_stock": 3,
+      "baseline_stock": 3,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "9962baa7-6abb-4e2a-8497-70de81637952",
+          "source_product_uuid": "136cbf78-0958-43dd-aa42-862ee68cf42c",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "fa47c2c3-38b9-40bc-8a39-151d6a626c26",
+          "source_product_uuid": "9e6f4f55-a1ac-4180-b8c4-fbb41ef4c61b",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 3,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "bombe vert",
+      "categorie": "General",
+      "prix_achat": 5000,
+      "prix_vente": 7000,
+      "a1_uuid": "207d7b50-0f22-4df2-ab33-7cbf5d985bdd",
+      "a2_uuid": "f49246dc-7b40-418b-a9c2-e927a1325feb",
+      "canonical_proposed": "79d00118-9f12-58b1-86a3-2a65f55b97bd",
+      "a1_stock": 4,
+      "a2_stock": 4,
+      "baseline_stock": 4,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "ceba3a63-1726-4c0e-83f5-f819af87fd9d",
+          "source_product_uuid": "207d7b50-0f22-4df2-ab33-7cbf5d985bdd",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "dbb494e0-40d7-4716-97b0-8b8e550f53ae",
+          "source_product_uuid": "f49246dc-7b40-418b-a9c2-e927a1325feb",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 4,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "colle bougie gm",
+      "categorie": "General",
+      "prix_achat": 800,
+      "prix_vente": 1500,
+      "a1_uuid": "cd446754-0da5-4305-b4c7-ac85b7d4134d",
+      "a2_uuid": "5aa48624-d5ee-4775-9b09-0383ae2d6789",
+      "canonical_proposed": "4feb34a5-814d-5749-9e8a-77296cf54bb5",
+      "a1_stock": 16,
+      "a2_stock": 16,
+      "baseline_stock": 16,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "2fcb6430-502e-49d5-87fc-94d06da6b4cb",
+          "source_product_uuid": "cd446754-0da5-4305-b4c7-ac85b7d4134d",
+          "quantity_delta": 16,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "69b71729-a5b2-4c7b-99d8-78c06186f85c",
+          "source_product_uuid": "5aa48624-d5ee-4775-9b09-0383ae2d6789",
+          "quantity_delta": 16,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 16,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "depoxy gm",
+      "categorie": "General",
+      "prix_achat": 3100,
+      "prix_vente": 5000,
+      "a1_uuid": "81623e11-b5ef-4064-a569-097ac596daa3",
+      "a2_uuid": "edf16291-6af7-4be2-93bc-d4d4478f3c82",
+      "canonical_proposed": "cb6a68b5-44c1-5de2-9f79-499a2e5d6f63",
+      "a1_stock": 7,
+      "a2_stock": 8,
+      "baseline_stock": 8,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "35701353-a3a1-4a76-9e12-d403165a65f4",
+          "source_product_uuid": "edf16291-6af7-4be2-93bc-d4d4478f3c82",
+          "quantity_delta": 8,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "69f7aa3c-d0e1-4704-81ff-fd8ab27573bf",
+          "source_product_uuid": "81623e11-b5ef-4064-a569-097ac596daa3",
+          "quantity_delta": 8,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [
+        {
+          "source_transaction_id": "baf1b5bc-3183-4924-adc4-866533d1d727",
+          "quantity_delta": -1,
+          "source": "VENTE",
+          "occurred_at": "2026-08-24T17:07:20Z",
+          "source_product_uuids": [
+            "81623e11-b5ef-4064-a569-097ac596daa3"
+          ]
+        }
+      ],
+      "target_stock": 7,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "dilluant 416",
+      "categorie": "General",
+      "prix_achat": 11500,
+      "prix_vente": 14000,
+      "a1_uuid": "51c5f2f3-55dc-4d98-99d9-67b4afc282d5",
+      "a2_uuid": "78360c8d-c4d4-4646-9bd2-16019296590e",
+      "canonical_proposed": "da3a7562-dd30-5e65-b445-cd42de1f8300",
+      "a1_stock": 3,
+      "a2_stock": 3,
+      "baseline_stock": 3,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "207d4ff9-4737-4a79-94e1-bbf58fd857a6",
+          "source_product_uuid": "78360c8d-c4d4-4646-9bd2-16019296590e",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "f901ae6e-6912-499b-9e85-678aee4f1b2c",
+          "source_product_uuid": "51c5f2f3-55dc-4d98-99d9-67b4afc282d5",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 3,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "douille a vis",
+      "categorie": "General",
+      "prix_achat": 600,
+      "prix_vente": 1000,
+      "a1_uuid": "cde3868d-d8c9-4478-a1ce-04679fc3b815",
+      "a2_uuid": "39e4e352-5e75-438c-b8b4-6d9e8a162903",
+      "canonical_proposed": "b6d0e5ff-5d37-50ae-aeb7-c902e4223e50",
+      "a1_stock": 34,
+      "a2_stock": 34,
+      "baseline_stock": 34,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "443b51ed-4ee4-4344-b6e1-b0ec6872d97c",
+          "source_product_uuid": "cde3868d-d8c9-4478-a1ce-04679fc3b815",
+          "quantity_delta": 34,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "eb8be3a7-7b5c-4801-8fa7-296d11bf25f5",
+          "source_product_uuid": "39e4e352-5e75-438c-b8b4-6d9e8a162903",
+          "quantity_delta": 34,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 34,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "douille B22 fotsy",
+      "categorie": "General",
+      "prix_achat": 400,
+      "prix_vente": 600,
+      "a1_uuid": "23a07975-fd16-4dff-bcd6-cecb7d6402fd",
+      "a2_uuid": "8ac2b758-b17b-48f8-9e86-93f775946fd9",
+      "canonical_proposed": "fa18f6e5-03c0-513a-8858-fec9c6ff9206",
+      "a1_stock": 77,
+      "a2_stock": 77,
+      "baseline_stock": 77,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "59329132-644a-4ac3-8b32-e20f75de900a",
+          "source_product_uuid": "23a07975-fd16-4dff-bcd6-cecb7d6402fd",
+          "quantity_delta": 77,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "d731b484-984f-44eb-8407-c58d32c22fae",
+          "source_product_uuid": "8ac2b758-b17b-48f8-9e86-93f775946fd9",
+          "quantity_delta": 77,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 77,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "douille ronono",
+      "categorie": "General",
+      "prix_achat": 500,
+      "prix_vente": 1000,
+      "a1_uuid": "3be0b163-ffc0-4ab0-b6d2-70b6f3776d60",
+      "a2_uuid": "96b44466-c6ef-4716-8588-1427b6ba6832",
+      "canonical_proposed": "4675ec6c-846e-5c1d-9d99-1c5c8275445f",
+      "a1_stock": 47,
+      "a2_stock": 47,
+      "baseline_stock": 47,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "e2f70ea5-166c-4899-9521-69de90e19bd6",
+          "source_product_uuid": "3be0b163-ffc0-4ab0-b6d2-70b6f3776d60",
+          "quantity_delta": 47,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "eb4e8c49-46b9-4f8a-a431-3a65a17b17b4",
+          "source_product_uuid": "96b44466-c6ef-4716-8588-1427b6ba6832",
+          "quantity_delta": 47,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 47,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "p36",
+      "categorie": "General",
+      "prix_achat": 1200,
+      "prix_vente": 2000,
+      "a1_uuid": "4a4c4b8d-0bbc-4605-a46e-92c67ea99c7d",
+      "a2_uuid": "8e662e4b-4355-47e2-b162-e3b767724faf",
+      "canonical_proposed": "bf5390c8-0099-51af-8cea-81ab75e2f696",
+      "a1_stock": 44,
+      "a2_stock": 44,
+      "baseline_stock": 44,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "3a78ebe3-7914-4b50-875b-eb4bd0c01517",
+          "source_product_uuid": "4a4c4b8d-0bbc-4605-a46e-92c67ea99c7d",
+          "quantity_delta": 44,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "cfd8d092-738e-4897-8f37-a2e09f3f5bfc",
+          "source_product_uuid": "8e662e4b-4355-47e2-b162-e3b767724faf",
+          "quantity_delta": 44,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 44,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "p60",
+      "categorie": "General",
+      "prix_achat": 1200,
+      "prix_vente": 2000,
+      "a1_uuid": "30257d44-481e-4367-bcac-22ef27fac0d0",
+      "a2_uuid": "a089a087-b39c-4da7-a6c5-07930dd4c978",
+      "canonical_proposed": "99902c9d-d3c7-54f6-bc5f-b0542b430b70",
+      "a1_stock": 37,
+      "a2_stock": 37,
+      "baseline_stock": 37,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "1c1c41b3-b69f-42d1-aba4-314766202e6b",
+          "source_product_uuid": "a089a087-b39c-4da7-a6c5-07930dd4c978",
+          "quantity_delta": 37,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "70194a18-b7b4-4f20-a8d7-279ee2fa9913",
+          "source_product_uuid": "30257d44-481e-4367-bcac-22ef27fac0d0",
+          "quantity_delta": 37,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 37,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "papier vers 100",
+      "categorie": "General",
+      "prix_achat": 280,
+      "prix_vente": 500,
+      "a1_uuid": "c0a56cc6-137f-4c45-ab2a-10eed7c63d09",
+      "a2_uuid": "3c563115-0ad0-4115-b07c-e267c4b0bf59",
+      "canonical_proposed": "3e4882d2-1593-5ba0-b363-5ae81488d9b7",
+      "a1_stock": 450,
+      "a2_stock": 450,
+      "baseline_stock": 450,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "4cb4d574-a5b7-46d0-8b97-1013e082ce4f",
+          "source_product_uuid": "c0a56cc6-137f-4c45-ab2a-10eed7c63d09",
+          "quantity_delta": 450,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "736929eb-4dda-41f9-93ed-1d36a13127fc",
+          "source_product_uuid": "3c563115-0ad0-4115-b07c-e267c4b0bf59",
+          "quantity_delta": 450,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 450,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "papier vers 120",
+      "categorie": "General",
+      "prix_achat": 280,
+      "prix_vente": 500,
+      "a1_uuid": "79037378-fc4c-47d6-ab6e-90f9d85c6348",
+      "a2_uuid": "cfc000b8-93c3-4a5e-b28e-6a19aaf3420b",
+      "canonical_proposed": "0a2092bd-be00-50ed-87d6-1854fe93b63c",
+      "a1_stock": 450,
+      "a2_stock": 450,
+      "baseline_stock": 450,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "1735b1f2-37db-449f-a379-c28e8851eae9",
+          "source_product_uuid": "cfc000b8-93c3-4a5e-b28e-6a19aaf3420b",
+          "quantity_delta": 450,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "9d36d1b9-f925-4145-b2aa-fd27dc048093",
+          "source_product_uuid": "79037378-fc4c-47d6-ab6e-90f9d85c6348",
+          "quantity_delta": 450,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 450,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "papier vers 60",
+      "categorie": "General",
+      "prix_achat": 280,
+      "prix_vente": 500,
+      "a1_uuid": "05cfe9b7-a659-4672-bfe7-884cc39b1ae9",
+      "a2_uuid": "c9e32df7-2721-486d-819e-2b430612fa8d",
+      "canonical_proposed": "a81b3b90-0cdf-503f-b117-5a6482e1e1af",
+      "a1_stock": 450,
+      "a2_stock": 450,
+      "baseline_stock": 450,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "3b88f43f-4698-45d5-97a9-423f49e7df78",
+          "source_product_uuid": "c9e32df7-2721-486d-819e-2b430612fa8d",
+          "quantity_delta": 450,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "3ce906aa-1e86-45d4-8e6f-df2dc73d06f3",
+          "source_product_uuid": "05cfe9b7-a659-4672-bfe7-884cc39b1ae9",
+          "quantity_delta": 450,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 450,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "papier vers 80",
+      "categorie": "General",
+      "prix_achat": 280,
+      "prix_vente": 500,
+      "a1_uuid": "8944f3d1-831e-4ef7-983a-ad7c8cffbb05",
+      "a2_uuid": "a97896bd-51a5-4e55-9369-429749815e70",
+      "canonical_proposed": "ecc41244-15bb-53d3-8771-3f50ae2dfb7d",
+      "a1_stock": 450,
+      "a2_stock": 450,
+      "baseline_stock": 450,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "6b4fbadf-a080-449f-b6a9-1026bbc014e6",
+          "source_product_uuid": "a97896bd-51a5-4e55-9369-429749815e70",
+          "quantity_delta": 450,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "845e2fa2-62b4-4076-abde-aac0aab56f6c",
+          "source_product_uuid": "8944f3d1-831e-4ef7-983a-ad7c8cffbb05",
+          "quantity_delta": 450,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 450,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "peinture mini bleu ciel",
+      "categorie": "General",
+      "prix_achat": 5800,
+      "prix_vente": 7000,
+      "a1_uuid": "fe1d18e3-9d22-4fc5-a13e-df0920094fdf",
+      "a2_uuid": "c2d422f8-47f8-44d1-b5eb-c7883ad8a4f3",
+      "canonical_proposed": "5adf649e-e252-5dc6-a8f8-f752b89de233",
+      "a1_stock": 2,
+      "a2_stock": 2,
+      "baseline_stock": 2,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "1617c98d-5e1a-4ed5-9d2c-7ec594e158f1",
+          "source_product_uuid": "fe1d18e3-9d22-4fc5-a13e-df0920094fdf",
+          "quantity_delta": 2,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "651c05a5-34fe-45b7-a9bb-f5a2c032a8d1",
+          "source_product_uuid": "c2d422f8-47f8-44d1-b5eb-c7883ad8a4f3",
+          "quantity_delta": 2,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 2,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "peinture mini bleu marine",
+      "categorie": "General",
+      "prix_achat": 5800,
+      "prix_vente": 7000,
+      "a1_uuid": "81f4f3f8-e356-441c-9296-da3ae6066637",
+      "a2_uuid": "8907a121-2d62-43b8-9c65-b37cd34b88ce",
+      "canonical_proposed": "3f1255e2-736f-592c-adf1-ab09827ad866",
+      "a1_stock": 3,
+      "a2_stock": 3,
+      "baseline_stock": 3,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "2af6bb63-04e5-4304-aa44-08be4c6f6246",
+          "source_product_uuid": "8907a121-2d62-43b8-9c65-b37cd34b88ce",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "76d9a3be-92be-45a7-9c60-c3240ae01b96",
+          "source_product_uuid": "81f4f3f8-e356-441c-9296-da3ae6066637",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 3,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "peinture mini gris",
+      "categorie": "General",
+      "prix_achat": 5800,
+      "prix_vente": 7000,
+      "a1_uuid": "426ed2f8-3dee-46fc-89b6-78823f035f68",
+      "a2_uuid": "e5e1c597-79b3-49ba-8f21-cfcaa59f7049",
+      "canonical_proposed": "75f5cd7c-7f5a-50d2-99df-2d35cfe9982d",
+      "a1_stock": 4,
+      "a2_stock": 4,
+      "baseline_stock": 4,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "3592ce4a-b3a3-4623-a64b-b9a04af0ca16",
+          "source_product_uuid": "426ed2f8-3dee-46fc-89b6-78823f035f68",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "8a41ae27-55df-4ffb-a2fa-dbb13b417094",
+          "source_product_uuid": "e5e1c597-79b3-49ba-8f21-cfcaa59f7049",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 4,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "peinture mini jaune",
+      "categorie": "General",
+      "prix_achat": 5800,
+      "prix_vente": 7000,
+      "a1_uuid": "f4abbde6-c467-4928-8b88-a6db353bd3fd",
+      "a2_uuid": "7ba00ca0-4707-4936-9ee9-beb258210ca6",
+      "canonical_proposed": "fb3d0c09-e359-5480-ae97-c391876517f8",
+      "a1_stock": 2,
+      "a2_stock": 2,
+      "baseline_stock": 2,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "705dc85e-cbc0-4ee2-8f6d-59621f300ba2",
+          "source_product_uuid": "f4abbde6-c467-4928-8b88-a6db353bd3fd",
+          "quantity_delta": 2,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "c3086a6c-0ce7-4999-86f2-c792ded6c859",
+          "source_product_uuid": "7ba00ca0-4707-4936-9ee9-beb258210ca6",
+          "quantity_delta": 2,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 2,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "peinture mini marron",
+      "categorie": "General",
+      "prix_achat": 5800,
+      "prix_vente": 7000,
+      "a1_uuid": "55b2ef95-5863-4ac0-9a33-dcad24139cc4",
+      "a2_uuid": "c70c2bd7-b2ba-492b-bc05-b2b266261906",
+      "canonical_proposed": "4175fb27-297f-597a-a97c-31462050ddca",
+      "a1_stock": 4,
+      "a2_stock": 4,
+      "baseline_stock": 4,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "39e91d8c-c4cd-4bd1-9389-2fa953b3dac0",
+          "source_product_uuid": "c70c2bd7-b2ba-492b-bc05-b2b266261906",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "bb8e2c29-9d77-4db4-a160-1bcdc781706a",
+          "source_product_uuid": "55b2ef95-5863-4ac0-9a33-dcad24139cc4",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 4,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "peinture mini orange",
+      "categorie": "General",
+      "prix_achat": 5800,
+      "prix_vente": 7000,
+      "a1_uuid": "20a589c1-351f-40aa-8e6d-7b57b30eeb93",
+      "a2_uuid": "f50c8554-c382-4864-adaa-fcd74c8e14ff",
+      "canonical_proposed": "3b542b4f-3af2-530a-aacf-a5ec97924650",
+      "a1_stock": 4,
+      "a2_stock": 4,
+      "baseline_stock": 4,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "4e50d418-7964-49c4-88f8-6310320dbea5",
+          "source_product_uuid": "f50c8554-c382-4864-adaa-fcd74c8e14ff",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "9bbfd8f5-8da1-4963-895e-c5dcdf5c7d61",
+          "source_product_uuid": "20a589c1-351f-40aa-8e6d-7b57b30eeb93",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 4,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "peinture mini rouge matt",
+      "categorie": "General",
+      "prix_achat": 5800,
+      "prix_vente": 7000,
+      "a1_uuid": "1d850d82-6089-48ff-93c5-0c2151dcbd39",
+      "a2_uuid": "a9bbb390-12bd-4929-9a83-340cf9bb5d41",
+      "canonical_proposed": "8e4b1752-746c-5476-b1d2-c942d24d377b",
+      "a1_stock": 3,
+      "a2_stock": 3,
+      "baseline_stock": 3,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "4a3e36cd-c667-4b3b-87a6-3dcf91831b76",
+          "source_product_uuid": "a9bbb390-12bd-4929-9a83-340cf9bb5d41",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "bdaf8473-d69f-49f2-8644-ef5469c750cf",
+          "source_product_uuid": "1d850d82-6089-48ff-93c5-0c2151dcbd39",
+          "quantity_delta": 3,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 3,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "pointe 10",
+      "categorie": "General",
+      "prix_achat": 750,
+      "prix_vente": 1000,
+      "a1_uuid": "07a7f715-366a-4211-a6f5-34f3ce8fb763",
+      "a2_uuid": "2c0c6edc-5b3f-4b8d-be87-231f9eca9cb9",
+      "canonical_proposed": "f1abe153-ed96-5bc9-8a28-51b2ff269ee5",
+      "a1_stock": 41,
+      "a2_stock": 41,
+      "baseline_stock": 41,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "22186979-8220-4cf8-85da-274ac595bfe9",
+          "source_product_uuid": "2c0c6edc-5b3f-4b8d-be87-231f9eca9cb9",
+          "quantity_delta": 41,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "cb325c1c-bb1e-4f11-a1df-674c38258a9f",
+          "source_product_uuid": "07a7f715-366a-4211-a6f5-34f3ce8fb763",
+          "quantity_delta": 41,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 41,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "pointe 4",
+      "categorie": "General",
+      "prix_achat": 750,
+      "prix_vente": 1000,
+      "a1_uuid": "249e0fda-b9ac-47d8-bbf4-eb096517555f",
+      "a2_uuid": "f594f64a-1e90-47aa-b3fb-2228992d86f7",
+      "canonical_proposed": "30728ba4-80c4-5342-aab3-4609393b8f61",
+      "a1_stock": 37,
+      "a2_stock": 37,
+      "baseline_stock": 37,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "89d57034-4dc6-49e2-8bcf-c7672c3de05a",
+          "source_product_uuid": "f594f64a-1e90-47aa-b3fb-2228992d86f7",
+          "quantity_delta": 37,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "e0ace41f-3333-418c-b953-f4d221387fba",
+          "source_product_uuid": "249e0fda-b9ac-47d8-bbf4-eb096517555f",
+          "quantity_delta": 37,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 37,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "pointe 5",
+      "categorie": "General",
+      "prix_achat": 750,
+      "prix_vente": 1000,
+      "a1_uuid": "538ca722-d953-4e21-90e2-8fb0edf3c32c",
+      "a2_uuid": "98071dec-a326-47fe-b1c1-eb09f8711c6b",
+      "canonical_proposed": "34ce192e-2399-5734-979a-7f00fefe0e79",
+      "a1_stock": 54,
+      "a2_stock": 54,
+      "baseline_stock": 54,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "da226645-31f0-4de4-8b44-fb5fc82a6dd1",
+          "source_product_uuid": "98071dec-a326-47fe-b1c1-eb09f8711c6b",
+          "quantity_delta": 54,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "ece7a9ba-db9a-4c4a-a55a-b56a81393a77",
+          "source_product_uuid": "538ca722-d953-4e21-90e2-8fb0edf3c32c",
+          "quantity_delta": 54,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 54,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "pointe 6",
+      "categorie": "General",
+      "prix_achat": 750,
+      "prix_vente": 1000,
+      "a1_uuid": "c67da6c7-5d46-4804-82ad-3e3212d3c453",
+      "a2_uuid": "1d3b0f1a-837e-4f05-bd22-06a9937ae1a2",
+      "canonical_proposed": "9eb61955-5b8f-5b4f-b117-276372e9159b",
+      "a1_stock": 43,
+      "a2_stock": 43,
+      "baseline_stock": 43,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "5ccb696a-e762-498e-aa92-48e7cede6a01",
+          "source_product_uuid": "1d3b0f1a-837e-4f05-bd22-06a9937ae1a2",
+          "quantity_delta": 43,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "d2a68e67-1e6c-4ddc-84d2-16e450cc1f6f",
+          "source_product_uuid": "c67da6c7-5d46-4804-82ad-3e3212d3c453",
+          "quantity_delta": 43,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 43,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "pointe 7",
+      "categorie": "General",
+      "prix_achat": 750,
+      "prix_vente": 1000,
+      "a1_uuid": "33eae81b-2b75-4c5f-aa40-92b1bd306d43",
+      "a2_uuid": "9178d7f1-3add-4989-b020-e7ded822b9a9",
+      "canonical_proposed": "d4760e50-222b-569c-b3ca-f61300050335",
+      "a1_stock": 40,
+      "a2_stock": 40,
+      "baseline_stock": 40,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "6e46536b-1413-4c55-b05d-d80757274a53",
+          "source_product_uuid": "33eae81b-2b75-4c5f-aa40-92b1bd306d43",
+          "quantity_delta": 40,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "c96267ae-6963-4f09-91f0-2de38334a0f8",
+          "source_product_uuid": "9178d7f1-3add-4989-b020-e7ded822b9a9",
+          "quantity_delta": 40,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 40,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "prise male gm",
+      "categorie": "General",
+      "prix_achat": 800,
+      "prix_vente": 2000,
+      "a1_uuid": "497ba85e-8cac-4fa3-893e-5d6cddde9577",
+      "a2_uuid": "b4151abe-66c5-4e50-b60f-45f869a4bec3",
+      "canonical_proposed": "ef56b559-47cb-59eb-9240-c49f04c7ef60",
+      "a1_stock": 41,
+      "a2_stock": 41,
+      "baseline_stock": 41,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "267333f3-1d35-4d95-adc0-2b47a0da7134",
+          "source_product_uuid": "497ba85e-8cac-4fa3-893e-5d6cddde9577",
+          "quantity_delta": 41,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "e2b2d770-2229-48a4-80e8-0e8f185097fc",
+          "source_product_uuid": "b4151abe-66c5-4e50-b60f-45f869a4bec3",
+          "quantity_delta": 41,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 41,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "prise male pm",
+      "categorie": "General",
+      "prix_achat": 312,
+      "prix_vente": 1000,
+      "a1_uuid": "42e81c05-1172-4a49-b64b-152992f3acaa",
+      "a2_uuid": "e251948b-96f8-4604-9611-499edc205224",
+      "canonical_proposed": "054358a2-88e4-5c6a-b913-04f9506ada7f",
+      "a1_stock": 23,
+      "a2_stock": 23,
+      "baseline_stock": 23,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "dd68c9fd-04d5-4017-aabf-2dc0e1e20d4a",
+          "source_product_uuid": "e251948b-96f8-4604-9611-499edc205224",
+          "quantity_delta": 23,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "e7bdebe4-8473-462f-a31f-407c7dec01bd",
+          "source_product_uuid": "42e81c05-1172-4a49-b64b-152992f3acaa",
+          "quantity_delta": 23,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 23,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "prise male qualitec",
+      "categorie": "General",
+      "prix_achat": 2292,
+      "prix_vente": 4000,
+      "a1_uuid": "e03eb2e2-ab0f-465f-8074-e1e8c06b68de",
+      "a2_uuid": "f31faaeb-b7eb-4060-9cd7-09131a11a10e",
+      "canonical_proposed": "e48c6d60-67d2-5e92-b166-3374cbb42c12",
+      "a1_stock": 17,
+      "a2_stock": 17,
+      "baseline_stock": 17,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "8f33ba67-13d4-40bd-87bb-af2145a6da22",
+          "source_product_uuid": "e03eb2e2-ab0f-465f-8074-e1e8c06b68de",
+          "quantity_delta": 17,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "efe0635f-417b-4059-be5c-fbc57ac8cffd",
+          "source_product_uuid": "f31faaeb-b7eb-4060-9cd7-09131a11a10e",
+          "quantity_delta": 17,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 17,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "savoka",
+      "categorie": "General",
+      "prix_achat": 2500,
+      "prix_vente": 5000,
+      "a1_uuid": "1cc7904f-2450-47f1-bde6-ba1ad51b3190",
+      "a2_uuid": "eac96db0-ad05-4c3d-9082-c9b5ae2decc0",
+      "canonical_proposed": "751272c4-5e60-5dd7-b803-4a36c42aa836",
+      "a1_stock": 6,
+      "a2_stock": 6,
+      "baseline_stock": 6,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "3c21e74a-2940-4a67-9b9b-46ff73c778b8",
+          "source_product_uuid": "eac96db0-ad05-4c3d-9082-c9b5ae2decc0",
+          "quantity_delta": 6,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "b0472a32-e901-419c-a719-08e47b551e18",
+          "source_product_uuid": "1cc7904f-2450-47f1-bde6-ba1ad51b3190",
+          "quantity_delta": 6,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 6,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "scotch mini",
+      "categorie": "General",
+      "prix_achat": 500,
+      "prix_vente": 1000,
+      "a1_uuid": "4fd02e40-06a4-49e7-9e95-6e74f2f45c7d",
+      "a2_uuid": "10892612-0a7e-41ad-a337-e667246afb60",
+      "canonical_proposed": "c6a7fbc0-e5de-596a-961c-36bf9a5ea1d5",
+      "a1_stock": 11,
+      "a2_stock": 11,
+      "baseline_stock": 11,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "04454e66-18e8-4624-a57c-06ead9a12e53",
+          "source_product_uuid": "4fd02e40-06a4-49e7-9e95-6e74f2f45c7d",
+          "quantity_delta": 11,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "416953bb-b742-4c3d-999a-981d11d5edc2",
+          "source_product_uuid": "10892612-0a7e-41ad-a337-e667246afb60",
+          "quantity_delta": 11,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 11,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "silicone",
+      "categorie": "General",
+      "prix_achat": 7000,
+      "prix_vente": 10000,
+      "a1_uuid": "42c0a11e-2549-4b41-a840-ece948d18ecf",
+      "a2_uuid": "eb9e0661-5a23-406d-89d9-bf5d5d7e7cb1",
+      "canonical_proposed": "6636e9e9-e8f3-5412-b8d5-99a88de8b6af",
+      "a1_stock": 4,
+      "a2_stock": 4,
+      "baseline_stock": 4,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "347d8a9b-c799-4a55-a2c8-f9eefcc591d8",
+          "source_product_uuid": "42c0a11e-2549-4b41-a840-ece948d18ecf",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "b92215ff-082d-40be-9be3-71b303516018",
+          "source_product_uuid": "eb9e0661-5a23-406d-89d9-bf5d5d7e7cb1",
+          "quantity_delta": 4,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 4,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "super glue 110",
+      "categorie": "General",
+      "prix_achat": 250,
+      "prix_vente": 500,
+      "a1_uuid": "1cbf0fca-05bd-47e9-a647-2f61d60bb523",
+      "a2_uuid": "a9c09f29-f82c-42d7-a0b0-b0347bc4f166",
+      "canonical_proposed": "4fa51e2f-8fc8-55e2-8026-504449bd5370",
+      "a1_stock": 83,
+      "a2_stock": 83,
+      "baseline_stock": 83,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "10b28b80-be2c-4a91-b2ce-07197cfbced2",
+          "source_product_uuid": "1cbf0fca-05bd-47e9-a647-2f61d60bb523",
+          "quantity_delta": 83,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "ffa998dd-0d97-4fc5-9c88-0c6dcee52ccd",
+          "source_product_uuid": "a9c09f29-f82c-42d7-a0b0-b0347bc4f166",
+          "quantity_delta": 83,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 83,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "super glue vert",
+      "categorie": "General",
+      "prix_achat": 417,
+      "prix_vente": 1000,
+      "a1_uuid": "98a79056-f69d-4bbf-8d93-afac10a99741",
+      "a2_uuid": "462bcb1a-dcec-4b48-bdde-7f159998e0c5",
+      "canonical_proposed": "9e4b2e08-4619-580a-8dd2-4db9efb99d03",
+      "a1_stock": 72,
+      "a2_stock": 72,
+      "baseline_stock": 72,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "4294a4b5-dbde-46ec-a2a7-7cc6509f485c",
+          "source_product_uuid": "98a79056-f69d-4bbf-8d93-afac10a99741",
+          "quantity_delta": 72,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:05Z"
+        },
+        {
+          "source_transaction_id": "69439c50-0946-4d29-853d-007b0c323c0c",
+          "source_product_uuid": "462bcb1a-dcec-4b48-bdde-7f159998e0c5",
+          "quantity_delta": 72,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 72,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "ventouse",
+      "categorie": "General",
+      "prix_achat": 450,
+      "prix_vente": 1000,
+      "a1_uuid": "27ca0bab-fe76-4026-9d20-c565f572b74b",
+      "a2_uuid": "c1cb09c6-8c73-4bf8-8b66-afd3c034cab4",
+      "canonical_proposed": "dc9de9f7-59c6-56b7-a82f-23caeae3cd1c",
+      "a1_stock": 42,
+      "a2_stock": 42,
+      "baseline_stock": 42,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "84279dc7-0d11-47e8-b4a0-d0bec070b5ed",
+          "source_product_uuid": "27ca0bab-fe76-4026-9d20-c565f572b74b",
+          "quantity_delta": 42,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "d43cb4bd-4b73-4b27-99c2-1227bf5f02f9",
+          "source_product_uuid": "c1cb09c6-8c73-4bf8-8b66-afd3c034cab4",
+          "quantity_delta": 42,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 42,
+      "evidence_status": "USER_CONFIRMED_AMBIGUITY"
+    },
+    {
+      "nom": "ventouse",
+      "categorie": "General",
+      "prix_achat": 450,
+      "prix_vente": 1000,
+      "a1_uuid": "bcc7e0d9-a143-4300-8803-99479061b4e8",
+      "a2_uuid": "c53a64f0-5534-4316-8d93-ff7beab75239",
+      "canonical_proposed": "945847e3-b558-57b8-a693-7bea5fd9b668",
+      "a1_stock": 31,
+      "a2_stock": 31,
+      "baseline_stock": 31,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "1d5f2e5a-cc3a-4633-bc40-f78260a74b65",
+          "source_product_uuid": "bcc7e0d9-a143-4300-8803-99479061b4e8",
+          "quantity_delta": 31,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "ee9442fd-4451-4740-8719-d5fec3413ff5",
+          "source_product_uuid": "c53a64f0-5534-4316-8d93-ff7beab75239",
+          "quantity_delta": 31,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 31,
+      "evidence_status": "USER_CONFIRMED_AMBIGUITY"
+    },
+    {
+      "nom": "ventouse 100",
+      "categorie": "General",
+      "prix_achat": 450,
+      "prix_vente": 1000,
+      "a1_uuid": "feca50c5-036a-4889-8e29-0466dbe4b699",
+      "a2_uuid": "f22a1857-2212-41b2-a84e-060fe36b3d76",
+      "canonical_proposed": "2b81e6c1-e48a-51b0-a996-5dd3c4459429",
+      "a1_stock": 69,
+      "a2_stock": 69,
+      "baseline_stock": 69,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "6ac71a7c-bcf0-4603-aa83-1c2c4c83dd86",
+          "source_product_uuid": "feca50c5-036a-4889-8e29-0466dbe4b699",
+          "quantity_delta": 69,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        },
+        {
+          "source_transaction_id": "ebffaa6a-d73a-4350-8976-2d330176b09b",
+          "source_product_uuid": "f22a1857-2212-41b2-a84e-060fe36b3d76",
+          "quantity_delta": 69,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 69,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "ventouse 180",
+      "categorie": "General",
+      "prix_achat": 450,
+      "prix_vente": 1000,
+      "a1_uuid": "b9eeb471-28de-4922-8388-b249374cc0cd",
+      "a2_uuid": "ad4d4d40-0f2d-4685-8fd4-365dae14a3d3",
+      "canonical_proposed": "ac4c4837-dadb-5cd3-bbce-336233c0304c",
+      "a1_stock": 1,
+      "a2_stock": 1,
+      "baseline_stock": 1,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "37098e04-5490-418d-8677-1f55294c432d",
+          "source_product_uuid": "ad4d4d40-0f2d-4685-8fd4-365dae14a3d3",
+          "quantity_delta": 1,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "b36c0288-39e5-48fe-a8e2-12dcda15aca8",
+          "source_product_uuid": "b9eeb471-28de-4922-8388-b249374cc0cd",
+          "quantity_delta": 1,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 1,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "ventouse 400",
+      "categorie": "General",
+      "prix_achat": 450,
+      "prix_vente": 1000,
+      "a1_uuid": "a72d5f29-2c2d-402e-af3f-4de6df0c90d0",
+      "a2_uuid": "4b1e08d3-74c2-4acf-a999-7d1e6012dd24",
+      "canonical_proposed": "6f0abe7a-975d-5503-b8b5-b7d805026c6a",
+      "a1_stock": 76,
+      "a2_stock": 76,
+      "baseline_stock": 76,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "bedf3c78-9403-43f6-a2b3-6a64ea8ca1ba",
+          "source_product_uuid": "4b1e08d3-74c2-4acf-a999-7d1e6012dd24",
+          "quantity_delta": 76,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "f47b87be-a33b-41a3-9e9e-b9aa57086487",
+          "source_product_uuid": "a72d5f29-2c2d-402e-af3f-4de6df0c90d0",
+          "quantity_delta": 76,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 76,
+      "evidence_status": "USER_CONFIRMED"
+    },
+    {
+      "nom": "ventouse 80",
+      "categorie": "General",
+      "prix_achat": 450,
+      "prix_vente": 1000,
+      "a1_uuid": "1745cf11-cf65-42d9-9630-bb79cdad7ddc",
+      "a2_uuid": "aabe972d-16dc-4e8a-8b36-98764b36e02f",
+      "canonical_proposed": "77351715-0716-50d0-ac0c-67c77c25eb78",
+      "a1_stock": 68,
+      "a2_stock": 68,
+      "baseline_stock": 68,
+      "baseline_seed_sources": [
+        {
+          "source_transaction_id": "6af38623-adea-4c78-be43-41828d817fdf",
+          "source_product_uuid": "aabe972d-16dc-4e8a-8b36-98764b36e02f",
+          "quantity_delta": 68,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T05:03:48Z"
+        },
+        {
+          "source_transaction_id": "ffe57343-cb74-4e80-b58c-25170fbd1029",
+          "source_product_uuid": "1745cf11-cf65-42d9-9630-bb79cdad7ddc",
+          "quantity_delta": 68,
+          "source": "MIGRATION_INITIAL_STOCK",
+          "occurred_at": "2026-08-20T04:28:06Z"
+        }
+      ],
+      "non_seed_events": [],
+      "target_stock": 68,
+      "evidence_status": "USER_CONFIRMED"
+    }
+  ],
+  "manifest_sha256": "f5e15ecba291b9490d591367a3d3a05fe782cc0694a122fd1d80e291e7a304e8"
+}

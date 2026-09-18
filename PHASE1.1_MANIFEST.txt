@@ -1,0 +1,21 @@
+FANEVA SYSTEM 1.4.9.16 — PHASE 1.1 FINAL
+========================================
+Date package : 2026-09-15
+Contenu :
+  - source/ai_data_service.py  (v1.1.0-phase1.1 — READ-ONLY, canonical priority, scrub vendeur)
+  - source/main.py
+  - source/faneva_hybrid.py
+  - source/canonical_mapping_staging_v1.json
+  - source/assets/cacert.pem
+  - test_ai_data_service.py     (20 tests)
+  - test_canonical_stock_views.py (53 tests)
+  - buildozer.spec
+  - README_RECONSTRUCTION.md et rapports de build antérieurs
+
+Tests exécutés avant packaging (réels) :
+  test_canonical_stock_views.py : 53/53 PASS
+  test_ai_data_service.py       : 20/20 PASS
+  TOTAL                         : 73 PASS / 0 FAIL / 0 ERROR
+
+Aucun secret, keystore, .env, base SQLite métier, ni credential inclus.
+Phase 2 IA non démarrée.

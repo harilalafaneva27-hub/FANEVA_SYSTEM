@@ -1,0 +1,10 @@
+FANEVA SYSTEM 1.4.9.16 — PHASE 2.2 UI INTEGRATION
+=================================================
+- Menu dashboard : 🤖 FANEVA IA
+- Écran Assistant (FR / MG), suggestions, envoi asynchrone
+- Flux : UI → FanevaIA → AIDataService → Provider
+- Provider par défaut : Unavailable (pas de clé embarquée)
+- Import IA optionnel : l'app démarre même sans modules IA
+- Aucune modification schéma SQLite / stock / vente / dette / sync
+
+Tests : 117 PASS (53+20+15+14+15 UI)

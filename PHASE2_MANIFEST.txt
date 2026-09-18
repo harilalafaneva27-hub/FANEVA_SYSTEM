@@ -1,0 +1,33 @@
+FANEVA SYSTEM 1.4.9.16 — PHASE 2 FANEVA IA
+==========================================
+Date package : 2026-09-16
+
+Nouveaux modules :
+  - source/ai_provider.py   — couche provider (Mock / Unavailable / MissingKey / HTTP optionnel)
+  - source/faneva_ia.py     — orchestration FANEVA IA (READ-ONLY, analytique)
+
+Conservés Phase 1.1 :
+  - source/ai_data_service.py (v1.1.0-phase1.1)
+  - source/main.py, source/faneva_hybrid.py
+  - test_ai_data_service.py (20)
+  - test_canonical_stock_views.py (53)
+  - test_faneva_ia.py (13)  [NOUVEAU]
+
+Tests exécutés (réels) avant packaging :
+  test_canonical_stock_views.py : 53/53 PASS
+  test_ai_data_service.py       : 20/20 PASS
+  test_faneva_ia.py             : 13/13 PASS
+  unittest discover test_*.py   : 86/86 PASS
+  TOTAL                         : 86 PASS / 0 FAIL / 0 ERROR / 0 SKIP
+
+Garanties Phase 2 :
+  - AIDataService seule source métier pour l'IA
+  - Aucune écriture SQLite par le module IA
+  - Aucune action métier automatique
+  - Confidentialité Admin/Vendeur préservée
+  - Isolation magasin préservée
+  - Provider interchangeable sans toucher le métier
+  - Mode indisponible / timeout / clé absente / réponse invalide gérés
+
+Aucun secret, keystore, .env, base SQLite métier inclus.
+Phase 3 non démarrée. APK non construit.

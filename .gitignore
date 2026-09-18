@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Buildozer / Android build
+.buildozer/
+bin/
+*.apk
+*.aab
+*.apks
+
+# SQLite / business data
+*.db
+*.sqlite
+*.sqlite3
+
+# Signing / secrets
+*.keystore
+*.jks
+.env
+.env.*
+*password*
+*secret*
+
+# Logs / temporary files
+*.log
+*.tmp
+*.bak
+*.backup
+*.old
+
+# Termux / local build artifacts
+.qemu_test/
+FANEVA_BUILD*/
+FANEVA_*BUILD*
