@@ -3,7 +3,8 @@ name: FANEVA SYSTEM - Build APK
 on:
 workflow_dispatch:
 push:
-branches: [main]
+branches:
+- main
 
 jobs:
 build:
@@ -27,18 +28,7 @@ steps:
   - name: Install system dependencies
     run: |
       sudo apt-get update
-      sudo apt-get install -y \
-        build-essential \
-        git \
-        zip \
-        unzip \
-        autoconf \
-        automake \
-        libtool \
-        pkg-config \
-        libffi-dev \
-        libssl-dev \
-        zlib1g-dev
+      sudo apt-get install -y build-essential git zip unzip autoconf automake libtool pkg-config libffi-dev libssl-dev zlib1g-dev
 
   - name: Install Buildozer
     run: |
@@ -47,13 +37,7 @@ steps:
 
   - name: Run FANEVA tests
     run: |
-      python -m unittest \
-        test_canonical_stock_views.py \
-        test_ai_data_service.py \
-        test_faneva_ia.py \
-        test_faneva_ia_security.py \
-        test_faneva_ia_ui.py \
-        -v 2>&1 | tee test.log
+      python -m unittest test_canonical_stock_views.py test_ai_data_service.py test_faneva_ia.py test_faneva_ia_security.py test_faneva_ia_ui.py -v 2>&1 | tee test.log
       grep -q "Ran 117 tests" test.log
       grep -q "^OK" test.log
 
