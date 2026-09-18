@@ -41,6 +41,12 @@ jobs:
           grep -q "Ran 117 tests" test.log
           grep -q "^OK" test.log
 
+      - name: Prepare Buildozer cache
+        run: |
+          rm -rf .buildozer/android/platform/python-for-android
+          rm -rf .buildozer/android/platform/build-arm64-v8a
+          buildozer android clean || true
+
       - name: Build APK
         env:
           BUILDOZER_WARN_ON_ROOT: "0"
