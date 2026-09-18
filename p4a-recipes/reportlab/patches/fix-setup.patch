@@ -1,5 +1,5 @@
 --- a/setup.py	2023-04-25 14:22:53.000000000 +0300
-+++ b/setup.py	2026-09-18 17:57:23.290000000 +0300
++++ b/setup.py
 @@ -64,7 +64,7 @@
  #no-download-t1-files=yes
  #ignore-system-libart=yes
@@ -9,16 +9,45 @@
  usla = specialOption('--use-system-libart')
  mdbg = specialOption('--memory-debug')
  verbose = specialOption('--verbose',ceq=True)
-@@ -245,6 +245,12 @@
-         L = [L] if L else []
-         I = config('FREETYPE_PATHS','inc')
-         I = [I] if I else []
+@@ -277,20 +277,27 @@
+             # darwin ports installation directories
+             aDir(L, "/opt/local/lib")
+             aDir(I, "/opt/local/include")
+-        aDir(I, "/usr/local/include")
+-        aDir(L, "/usr/local/lib")
+-        aDir(I, "/usr/include")
+-        aDir(L, "/usr/lib")
+-        aDir(I, "/usr/include/freetype2")
+-        if addrSize==64:
+-            aDir(L, "/usr/lib/lib64")
+-            aDir(L, "/usr/lib/x86_64-linux-gnu")
+-        else:
+-            aDir(L, "/usr/lib/lib32")
+-        prefix = sysconfig.get_config_var("prefix")
+-        if prefix:
+-            aDir(L, pjoin(prefix, "lib"))
+-            aDir(I, pjoin(prefix, "include"))
 +        _ft_lib = '_FT_LIB_'
 +        _ft_inc = '_FT_INC_'
 +        if _ft_lib:
 +            aDir(L, _ft_lib)
 +        if _ft_inc:
 +            aDir(I, _ft_inc)
-         if platform == "cygwin":
-             aDir(L, os.path.join("/usr/lib", "python%s" % sys.version[:3], "config"))
-         elif platform == "darwin":
++        if not _ft_lib:
++            aDir(I, "/usr/local/include")
++            aDir(L, "/usr/local/lib")
++            aDir(I, "/usr/include")
++            aDir(L, "/usr/lib")
++            aDir(I, "/usr/include/freetype2")
++            if addrSize==64:
++                aDir(L, "/usr/lib/lib64")
++                aDir(L, "/usr/lib/x86_64-linux-gnu")
++            else:
++                aDir(L, "/usr/lib/lib32")
++            prefix = sysconfig.get_config_var("prefix")
++            if prefix:
++                aDir(L, pjoin(prefix, "lib"))
++                aDir(I, pjoin(prefix, "include"))
+         if libname:
+             gsn = ''.join((('lib' if not libname.startswith('lib') else ''),libname,'*'))
+             L = list(filter(lambda _: glob.glob(pjoin(_,gsn)),L))
