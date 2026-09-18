@@ -1,0 +1,24 @@
+--- setup.py	2023-04-25 14:22:53.000000000 +0300
++++ setup.py.patched-test	2026-09-18 17:57:23.290000000 +0300
+@@ -64,7 +64,7 @@
+ #no-download-t1-files=yes
+ #ignore-system-libart=yes
+ # if used on command line the config values are not used
+-dlt1 = not specialOption('--no-download-t1-files')
++dlt1 = False
+ usla = specialOption('--use-system-libart')
+ mdbg = specialOption('--memory-debug')
+ verbose = specialOption('--verbose',ceq=True)
+@@ -245,6 +245,12 @@
+         L = [L] if L else []
+         I = config('FREETYPE_PATHS','inc')
+         I = [I] if I else []
++        _ft_lib = '_FT_LIB_'
++        _ft_inc = '_FT_INC_'
++        if _ft_lib:
++            aDir(L, _ft_lib)
++        if _ft_inc:
++            aDir(I, _ft_inc)
+         if platform == "cygwin":
+             aDir(L, os.path.join("/usr/lib", "python%s" % sys.version[:3], "config"))
+         elif platform == "darwin":

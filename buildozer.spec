@@ -8,6 +8,7 @@ source.include_exts = py,png,jpg,db,pem,json
 version = 1.4.9.16
 # reportlab : requis pour export PDF stock/rapports (import runtime dans main.py).
 requirements = python3,kivy,pyjnius,requests,reportlab
+p4a.local_recipes = ./p4a-recipes
 orientation = portrait
 fullscreen = 0
 
