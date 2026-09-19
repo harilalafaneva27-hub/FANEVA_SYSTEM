@@ -53,17 +53,69 @@ jobs:
         run: |
           yes | buildozer android release
 
-      - name: Verify APK
+      - name: Sign APK
+        env:
+          FANEVA_KEYSTORE_BASE64: ${{ secrets.FANEVA_KEYSTORE_BASE64 }}
+          FANEVA_KEYSTORE_PASSWORD: ${{ secrets.FANEVA_KEYSTORE_PASSWORD }}
+          FANEVA_KEY_ALIAS: ${{ secrets.FANEVA_KEY_ALIAS }}
+          FANEVA_KEY_PASSWORD: ${{ secrets.FANEVA_KEY_PASSWORD }}
+          FANEVA_CERT_SHA256: ${{ secrets.FANEVA_CERT_SHA256 }}
         run: |
-          APK=$(find bin -type f -name '*.apk' | head -n 1)
-          test -n "$APK"
-          echo "APK=$APK"
-          ls -lh "$APK"
-          sha256sum "$APK"
+          set -euo pipefail
 
-      - name: Upload APK
+          UNSIGNED_APK=$(find bin -type f -name '*-release-unsigned.apk' | head -n 1)
+          test -n "$UNSIGNED_APK"
+          echo "UNSIGNED_APK=$UNSIGNED_APK"
+
+          SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-${ANDROIDSDK:-}}}"
+          if [ -z "$SDK_ROOT" ]; then
+            SDK_ROOT=$(find "$HOME/.buildozer" "$RUNNER_TEMP" "/opt" -type f -name sdkmanager 2>/dev/null | head -n 1 | xargs -r dirname | xargs -r dirname)
+          fi
+          test -n "$SDK_ROOT"
+          test -d "$SDK_ROOT"
+
+          ZIPALIGN=$(find "$SDK_ROOT" -type f -name zipalign 2>/dev/null | sort -V | tail -n 1)
+          APKSIGNER=$(find "$SDK_ROOT" -type f -name apksigner 2>/dev/null | sort -V | tail -n 1)
+          test -x "$ZIPALIGN"
+          test -x "$APKSIGNER"
+
+          printf '%s' "$FANEVA_KEYSTORE_BASE64" | base64 --decode > faneva-release.keystore
+          chmod 600 faneva-release.keystore
+
+          ALIGNED_APK="bin/fanevasystem-1.4.9.16-arm64-v8a-release-aligned.apk"
+          SIGNED_APK="bin/fanevasystem-1.4.9.16-arm64-v8a-release-signed.apk"
+
+          "$ZIPALIGN" -p -f 4 "$UNSIGNED_APK" "$ALIGNED_APK"
+
+          "$APKSIGNER" sign \
+            --ks faneva-release.keystore \
+            --ks-type PKCS12 \
+            --ks-key-alias "$FANEVA_KEY_ALIAS" \
+            --ks-pass env:FANEVA_KEYSTORE_PASSWORD \
+            --key-pass env:FANEVA_KEY_PASSWORD \
+            --out "$SIGNED_APK" \
+            "$ALIGNED_APK"
+
+          "$APKSIGNER" verify --verbose --print-certs "$SIGNED_APK"
+
+          VERIFY_OUTPUT=$("$APKSIGNER" verify --print-certs "$SIGNED_APK" 2>&1)
+          ACTUAL=$(printf '%s\n' "$VERIFY_OUTPUT" | awk -F': ' '/certificate SHA-256 digest:/ {print $2; exit}' | tr -d ':[:space:]' | tr '[:lower:]' '[:upper:]')
+          EXPECTED=$(printf '%s' "$FANEVA_CERT_SHA256" | tr -d ':[:space:]' | tr '[:lower:]' '[:upper:]')
+
+          test -n "$ACTUAL"
+          test "$ACTUAL" = "$EXPECTED"
+
+          "$ZIPALIGN" -c -v 4 "$SIGNED_APK"
+
+          echo "SIGNED_APK=$SIGNED_APK"
+          ls -lh "$SIGNED_APK"
+          sha256sum "$SIGNED_APK"
+
+          rm -f "$ALIGNED_APK" "$UNSIGNED_APK" faneva-release.keystore
+
+      - name: Upload signed APK
         uses: actions/upload-artifact@v4
         with:
-          name: FANEVA_SYSTEM_1.4.9.16_APK
-          path: bin/*.apk
+          name: FANEVA_SYSTEM_1.4.9.16_APK_SIGNED
+          path: bin/*-signed.apk
           if-no-files-found: error
