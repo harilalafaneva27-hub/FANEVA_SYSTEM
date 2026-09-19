@@ -13,7 +13,7 @@ orientation = portrait
 fullscreen = 0
 
 # RELEASE build preparation; no production sync is executed during build/preflight.
-android.api = 31
+android.api = 34
 android.minapi = 21
 android.ndk = 25b
 # Release validation architecture retained from LOT5.
