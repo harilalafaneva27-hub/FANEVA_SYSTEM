@@ -1,11 +1,11 @@
 [app]
 # FANEVA SYSTEM 1.4.9 — workspace séparé depuis la release 1.4.8.
-title = FANEVA SYSTEM 1.4.9.16
+title = FANEVA SYSTEM 1.4.9.18
 package.name = fanevasystem
 package.domain = com.faneva
 source.dir = source
 source.include_exts = py,png,jpg,db,pem,json
-version = 1.4.9.16
+version = 1.4.9.18
 # reportlab : requis pour export PDF stock/rapports (import runtime dans main.py).
 requirements = python3,kivy,pyjnius,requests,reportlab
 p4a.local_recipes = ./p4a-recipes
@@ -21,7 +21,7 @@ android.archs = arm64-v8a
 android.accept_sdk_license = True
 android.private_storage = True
 android.release_artifact = apk
-android.numeric_version = 1040916
+android.numeric_version = 102140918
 # Requis pour toute résolution DNS, TLS et requête HTTPS depuis l’APK Android.
 # Permissions normales : aucune invite runtime ni accès aux données métier.
 # Pas de WRITE/READ_EXTERNAL_STORAGE : résolution DB = external best-effort puis fallback
