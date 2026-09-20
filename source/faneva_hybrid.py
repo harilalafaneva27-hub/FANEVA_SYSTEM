@@ -2138,7 +2138,7 @@ def get_daily_cash_report(conn, day_iso=None):
     cur = conn.cursor()
     if day_iso is None:
         day_filter_ventes = "date(date_vente)=date('now','localtime')"
-        day_filter_tx = "date(horodatage)=date('now','localtime')"
+        day_filter_tx = "date(horodatage)=date('now')"
         params_v, params_t = (), ()
     else:
         day_filter_ventes = "date(date_vente)=date(?)"
@@ -2209,7 +2209,7 @@ def _report_transaction_ids(conn, day_iso=None):
             SELECT transaction_id, type_op, operation_id, sale_nonce, business_fingerprint
             FROM transactions
             WHERE type_op IN ('VENTE','VENTE_CREDIT','PAIEMENT','DETTE')
-              AND date(horodatage)=date('now','localtime')
+              AND date(horodatage)=date('now')
             ORDER BY horodatage
         """)
     else:

@@ -46,6 +46,7 @@ try:
     from faneva_ia import FanevaIA, run_faneva_ia_question
     from faneva_ia_lang import detect_language, ui_text, suggestion_pairs, map_error_message
     from ai_provider import UnavailableAIProvider, MockAIProvider, build_provider
+    from ai_config import load_config, save_config, public_config
     HAS_FANEVA_IA = True
 except Exception:
     FanevaIA = None
@@ -2423,10 +2424,24 @@ class KDKApp(App):
         return getattr(self, "_ia_ui_lang_pref", "fr") or "fr"
 
     def _ia_provider(self):
-        """Provider par défaut : indisponible (pas de clé embarquée, pas de réseau forcé)."""
-        if not HAS_FANEVA_IA or UnavailableAIProvider is None:
+        """Construit le provider IA depuis la configuration privée de l'application."""
+        if not HAS_FANEVA_IA or build_provider is None:
             return None
-        return UnavailableAIProvider("IA non configurée sur cet appareil")
+
+        try:
+            cfg = load_config()
+            return build_provider(
+                cfg.get("provider", "http"),
+                api_key=cfg.get("api_key"),
+                base_url=cfg.get("base_url"),
+                model=cfg.get("model"),
+                enabled=cfg.get("enabled", False),
+            )
+        except Exception as exc:
+            log_error("ia_provider_config", exc)
+            if UnavailableAIProvider is None:
+                return None
+            return UnavailableAIProvider("Configuration IA indisponible")
 
     def _ia_db_factory(self):
         """Factory de connexion réservée au service IA (pas d'usage métier dans l'UI).
@@ -2462,6 +2477,155 @@ class KDKApp(App):
             "username": username,
             "user_id": user_id,
         }
+
+    def show_faneva_ia_config(self, inst=None):
+        """Écran de configuration FANEVA IA — réservé à l'administrateur."""
+        if not self.check_admin():
+            return
+        try:
+            self.clear()
+            cfg = public_config(load_config())
+            b = BoxLayout(orientation="vertical", padding=15, spacing=10)
+
+            b.add_widget(Label(
+                text="⚙️ CONFIGURATION FANEVA IA",
+                font_size=26,
+                bold=True,
+                color=(0.15, 0.55, 0.85, 1),
+                size_hint_y=None,
+                height=45,
+            ))
+
+            status = "CLÉ CONFIGURÉE" if cfg.get("has_api_key") else "AUCUNE CLÉ CONFIGURÉE"
+            self.ia_cfg_status = Label(
+                text=status,
+                font_size=18,
+                color=(0.2, 0.7, 0.3, 1) if cfg.get("has_api_key") else (0.7, 0.4, 0.2, 1),
+                size_hint_y=None,
+                height=30,
+            )
+            b.add_widget(self.ia_cfg_status)
+
+            self.ia_cfg_provider = TextInput(
+                text=cfg.get("provider", "http"),
+                hint_text="Provider (http / openai / grok)",
+                multiline=False,
+                font_size=20,
+                size_hint_y=None,
+                height=50,
+            )
+            b.add_widget(self.ia_cfg_provider)
+
+            self.ia_cfg_base_url = TextInput(
+                text=cfg.get("base_url", "https://api.openai.com/v1"),
+                hint_text="Base URL HTTPS",
+                multiline=False,
+                font_size=20,
+                size_hint_y=None,
+                height=50,
+            )
+            b.add_widget(self.ia_cfg_base_url)
+
+            self.ia_cfg_model = TextInput(
+                text=cfg.get("model", "gpt-4o-mini"),
+                hint_text="Modèle",
+                multiline=False,
+                font_size=20,
+                size_hint_y=None,
+                height=50,
+            )
+            b.add_widget(self.ia_cfg_model)
+
+            self.ia_cfg_key = TextInput(
+                text="",
+                hint_text="Nouvelle clé API (laisser vide pour conserver l'actuelle)",
+                password=True,
+                multiline=False,
+                font_size=20,
+                size_hint_y=None,
+                height=50,
+            )
+            b.add_widget(self.ia_cfg_key)
+
+            enabled_text = "ACTIVÉ" if cfg.get("enabled") else "DÉSACTIVÉ"
+            enabled_color = (0.2, 0.8, 0.4, 1) if cfg.get("enabled") else (0.7, 0.3, 0.3, 1)
+            self.ia_cfg_enabled = bool(cfg.get("enabled"))
+            self.ia_cfg_enabled_btn = Button(
+                text=enabled_text,
+                font_size=20,
+                bold=True,
+                background_color=enabled_color,
+                size_hint_y=None,
+                height=50,
+            )
+            self.ia_cfg_enabled_btn.bind(on_press=self._toggle_faneva_ia_config_enabled)
+            b.add_widget(self.ia_cfg_enabled_btn)
+
+            b.add_widget(Label(
+                text="La clé API n'est jamais affichée ni stockée dans SQLite.",
+                font_size=15,
+                color=(0.5, 0.5, 0.5, 1),
+                size_hint_y=None,
+                height=35,
+            ))
+
+            btn_save = Button(
+                text="ENREGISTRER",
+                font_size=22,
+                bold=True,
+                background_color=(0.15, 0.65, 0.35, 1),
+                size_hint_y=None,
+                height=50,
+            )
+            btn_save.bind(on_press=self.save_faneva_ia_config)
+            b.add_widget(btn_save)
+
+            btn_back = Button(
+                text="RETOUR",
+                font_size=22,
+                background_color=(0.4, 0.4, 0.4, 1),
+                size_hint_y=None,
+                height=48,
+            )
+            btn_back.bind(on_press=lambda x: self.show_params())
+            b.add_widget(btn_back)
+
+            self.root.add_widget(b)
+        except Exception as e:
+            log_error("show_faneva_ia_config", e)
+            popup("Configuration FANEVA IA", str(e))
+
+    def _toggle_faneva_ia_config_enabled(self, inst=None):
+        self.ia_cfg_enabled = not bool(getattr(self, "ia_cfg_enabled", False))
+        if hasattr(self, "ia_cfg_enabled_btn"):
+            self.ia_cfg_enabled_btn.text = "ACTIVÉ" if self.ia_cfg_enabled else "DÉSACTIVÉ"
+            self.ia_cfg_enabled_btn.background_color = (
+                (0.2, 0.8, 0.4, 1) if self.ia_cfg_enabled else (0.7, 0.3, 0.3, 1)
+            )
+
+    def save_faneva_ia_config(self, inst=None):
+        """Sauvegarde la configuration IA dans le stockage privé, sans réseau ni SQLite."""
+        if not self.check_admin():
+            return
+        try:
+            current = load_config()
+            new_key = (getattr(self, "ia_cfg_key", None).text or "").strip()
+
+            save_config(
+                provider=(getattr(self, "ia_cfg_provider", None).text or "http").strip(),
+                enabled=bool(getattr(self, "ia_cfg_enabled", False)),
+                base_url=(getattr(self, "ia_cfg_base_url", None).text or "").strip(),
+                model=(getattr(self, "ia_cfg_model", None).text or "").strip(),
+                api_key=new_key if new_key else current.get("api_key", ""),
+            )
+
+            saved = public_config(load_config())
+            status = "CLÉ CONFIGURÉE" if saved.get("has_api_key") else "AUCUNE CLÉ CONFIGURÉE"
+            popup("Configuration FANEVA IA", "Configuration enregistrée.\n" + status)
+            self.show_params()
+        except Exception as e:
+            log_error("save_faneva_ia_config", e)
+            popup("Erreur configuration FANEVA IA", str(e))
 
     def show_faneva_ia(self, inst=None):
         """Écran Assistant FANEVA IA — strictement lecture seule, hors moteur métier."""
@@ -4449,6 +4613,10 @@ class KDKApp(App):
             btn_add_u = Button(text="+ UTILISATEUR", background_color=(0.2,0.8,0.4,1), size_hint_y=None, height=45)
             btn_add_u.bind(on_press=self.show_add_user)
             b.add_widget(btn_add_u)
+
+            btn_ia_config = Button(text="⚙️ CONFIGURATION FANEVA IA", background_color=(0.15,0.55,0.85,1), size_hint_y=None, height=45)
+            btn_ia_config.bind(on_press=self.show_faneva_ia_config)
+            b.add_widget(btn_ia_config)
 
             btn_back = Button(text="RETOUR", background_color=(0.4,0.4,0.4,1), size_hint_y=None, height=45)
             btn_back.bind(on_press=lambda x: self.show_dashboard())
