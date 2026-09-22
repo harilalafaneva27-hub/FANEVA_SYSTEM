@@ -1,6 +1,7 @@
 import sys
 import traceback
 import json
+import io
 
 # ==============================================================
 # FANEVA SYSTEM 1.4.9.2 — application métier avec transport `/sync` cohérent avec l’authentification
@@ -90,6 +91,14 @@ from functools import partial, wraps
 EXTERNAL_DIR = "/storage/emulated/0/FANEVA_SYSTEM_ANDROID"
 INTERNAL_DIR = "/data/data/com.faneva.fanevasystem/files/FANEVA_SYSTEM_ANDROID"
 BACKUP_DIR = "/storage/emulated/0/FANEVA_BACKUP"
+
+# Android SAF — stock export request codes
+STOCK_EXPORT_REQUEST_CSV = 47101
+STOCK_EXPORT_REQUEST_PDF = 47102
+
+# Android SAF export payloads kept in memory until the user selects a document URI.
+STOCK_EXPORT_PENDING = {}
+
 
 
 def get_migration_export_dir():
@@ -1065,9 +1074,82 @@ def popup(title, msg):
 # APP
 # ==============================
 class KDKApp(App):
+    def _bind_stock_export_activity_result(self):
+        try:
+            from android import activity
+            if getattr(self, "_stock_export_activity_bound", False):
+                return
+            activity.bind(on_activity_result=self._on_stock_export_activity_result)
+            self._stock_export_activity_bound = True
+            log("stock export SAF activity result bound")
+        except Exception as e:
+            log_error("_bind_stock_export_activity_result", e)
+
+    def _on_stock_export_activity_result(self, request_code, result_code, intent):
+        if request_code not in (STOCK_EXPORT_REQUEST_CSV, STOCK_EXPORT_REQUEST_PDF):
+            return
+
+        payload = STOCK_EXPORT_PENDING.pop(request_code, None)
+        if payload is None:
+            log("stock export SAF result without pending payload")
+            return
+
+        try:
+            if int(result_code) != -1:
+                log("stock export SAF cancelled")
+                return
+
+            if intent is None:
+                raise RuntimeError("SAF result sans Intent")
+
+            uri = intent.getData()
+            if uri is None:
+                raise RuntimeError("SAF result sans URI")
+
+            from jnius import autoclass
+            PythonActivity = autoclass("org.kivy.android.PythonActivity")
+            activity_obj = PythonActivity.mActivity
+            resolver = activity_obj.getContentResolver()
+            output_stream = resolver.openOutputStream(uri)
+
+            if output_stream is None:
+                raise RuntimeError("ContentResolver.openOutputStream() a retourne None")
+
+            data = payload["data"]
+            output_stream.write(bytearray(data))
+            output_stream.flush()
+            output_stream.close()
+
+            popup("Succes", "Export {} cree.".format(payload["kind"]))
+        except Exception as e:
+            log_error("_on_stock_export_activity_result", e)
+            popup("Erreur export {}".format(payload["kind"]), str(e))
+
+    def _start_stock_saf_export(self, kind, filename, mime_type, data, request_code):
+        try:
+            from jnius import autoclass
+            PythonActivity = autoclass("org.kivy.android.PythonActivity")
+            Intent = autoclass("android.content.Intent")
+
+            STOCK_EXPORT_PENDING[request_code] = {
+                "kind": kind,
+                "data": bytes(data),
+            }
+
+            activity_obj = PythonActivity.mActivity
+            intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.setType(mime_type)
+            intent.putExtra(Intent.EXTRA_TITLE, filename)
+            activity_obj.startActivityForResult(intent, request_code)
+        except Exception:
+            STOCK_EXPORT_PENDING.pop(request_code, None)
+            raise
+
     def build(self):
         log("build()")
         self.user = None
+        self._bind_stock_export_activity_result()
         self.magasin = None
         self.root = BoxLayout(orientation="vertical")
         self.show_choix_magasin()
@@ -2955,19 +3037,34 @@ class KDKApp(App):
         role = self.user.get("role", "VENDEUR") if self.user else "VENDEUR"
         try:
             import csv
+
             mag = self.get_magasin_info()
-            fn = f"/storage/emulated/0/FANEVA_STOCK_{mag['nom']}_{role}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+            filename = (
+                f"FANEVA_STOCK_{mag['nom']}_{role}_"
+                f"{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+            )
 
             with get_db_connection() as conn:
                 headers, rows = canonical_stock_export_data(conn, role)
 
-            os.makedirs(os.path.dirname(fn), exist_ok=True)
-            with open(fn, "w", newline="", encoding="utf-8") as f:
-                w = csv.writer(f)
-                w.writerow(headers)
-                for r in rows:
-                    w.writerow(list(r))
-            popup("Succes", f"Export CSV Stock cree:\n{fn}")
+            output = io.StringIO(newline="")
+            try:
+                writer = csv.writer(output)
+                writer.writerow(headers)
+                for row in rows:
+                    writer.writerow(list(row))
+                data = output.getvalue().encode("utf-8")
+            finally:
+                output.close()
+
+            self._start_stock_saf_export(
+                "CSV",
+                filename,
+                "text/csv",
+                data,
+                STOCK_EXPORT_REQUEST_CSV,
+            )
+
         except Exception as e:
             log_error("export_stock_csv", e)
             popup("Erreur CSV", str(e))
@@ -2978,36 +3075,63 @@ class KDKApp(App):
         try:
             from reportlab.lib.pagesizes import A4
             from reportlab.pdfgen import canvas
+
             mag = self.get_magasin_info()
-            fn = f"/storage/emulated/0/FANEVA_STOCK_{mag['nom']}_{role}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+            filename = (
+                f"FANEVA_STOCK_{mag['nom']}_{role}_"
+                f"{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+            )
 
             with get_db_connection() as conn:
                 headers, rows = canonical_stock_export_data(conn, role)
 
-            os.makedirs(os.path.dirname(fn), exist_ok=True)
-            c = canvas.Canvas(fn, pagesize=A4)
-            y = 800
-            c.drawString(50, y, f"KDK SYSTEM - STOCK {mag['nom']} ({role})")
-            y -= 25
-            c.drawString(50, y, f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M')}")
-            y -= 35
+            pdf_buffer = io.BytesIO()
+            try:
+                c = canvas.Canvas(pdf_buffer, pagesize=A4)
+                y = 800
 
-            header_line = " | ".join(headers)
-            c.drawString(40, y, header_line[:90])
-            y -= 15
-            c.line(40, y, 550, y)
-            y -= 20
+                c.drawString(
+                    50, y,
+                    f"KDK SYSTEM - STOCK {mag['nom']} ({role})"
+                )
+                y -= 25
 
-            for r in rows:
-                if y < 50:
-                    c.showPage()
-                    y = 800
-                line_str = " | ".join([str(val) if val is not None else "" for val in r])
-                c.drawString(40, y, line_str[:95])
-                y -= 18
+                c.drawString(
+                    50, y,
+                    f"Date: {datetime.now().strftime('%d/%m/%Y %H:%M')}"
+                )
+                y -= 35
 
-            c.save()
-            popup("Succes", f"Export PDF Stock cree:\n{fn}")
+                header_line = " | ".join(headers)
+                c.drawString(40, y, header_line[:90])
+                y -= 15
+                c.line(40, y, 550, y)
+                y -= 20
+
+                for row in rows:
+                    if y < 50:
+                        c.showPage()
+                        y = 800
+
+                    line_str = " | ".join(
+                        [str(value) if value is not None else "" for value in row]
+                    )
+                    c.drawString(40, y, line_str[:95])
+                    y -= 18
+
+                c.save()
+                pdf_data = pdf_buffer.getvalue()
+            finally:
+                pdf_buffer.close()
+
+            self._start_stock_saf_export(
+                "PDF",
+                filename,
+                "application/pdf",
+                pdf_data,
+                STOCK_EXPORT_REQUEST_PDF,
+            )
+
         except Exception as e:
             log_error("export_stock_pdf", e)
             popup("Erreur PDF", str(e))
