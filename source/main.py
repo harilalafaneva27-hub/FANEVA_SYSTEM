@@ -5152,6 +5152,21 @@ class KDKApp(App):
                     f"UUID dans jointure pilote : {'OUI' if report.get('pilot_join_rows') else 'NON'}\n"
                     f"Fichier -wal : {'PRESENT' if report.get('wal', {}).get('exists') else 'absent'}\n"
                     f"Fichier -shm : {'PRESENT' if report.get('shm', {}).get('exists') else 'absent'}\n\n"
+                    "AUDIT NORMAL_PENDING :\n"
+                    f"LOCAL + pending_sync total : {report.get('normal_pending_audit', {}).get('local_pending_total', '-')}\n"
+                    f"Device courant : {report.get('device_identity', {}).get('device_id', '-')}\n"
+                    f"Device legacy : {report.get('device_identity', {}).get('device_id_legacy', '-')}\n"
+                    f"Identity state : {report.get('device_identity', {}).get('device_identity_state', '-')}\n"
+                    f"Migration lock : {report.get('device_identity', {}).get('migration_lock', '-')}\n"
+                    f"Current device matches : {report.get('normal_pending_audit', {}).get('current_device_matches', '-')}\n"
+                    f"Legacy device matches : {report.get('normal_pending_audit', {}).get('legacy_device_matches', '-')}\n"
+                    f"Invalid transaction UUID : {report.get('normal_pending_audit', {}).get('invalid_transaction_uuid', '-')}\n"
+                    f"Invalid device UUID : {report.get('normal_pending_audit', {}).get('invalid_device_uuid', '-')}\n"
+                    f"Metadata invalid : {report.get('normal_pending_audit', {}).get('metadata_invalid', '-')}\n"
+                    "Eligibility exacte : "
+                    f"{report.get('normal_pending_audit', {}).get('eligibility', {})}\n\n"
+                    "Répartition par device : "
+                    f"{report.get('normal_pending_audit', {}).get('by_device_id', [])}\n\n"
                     "Bases candidates :\n" + "\n".join(candidate_paths)
                 )
                 if report.get("error"):

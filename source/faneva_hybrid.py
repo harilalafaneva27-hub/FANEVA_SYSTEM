@@ -2481,6 +2481,141 @@ def diagnose_pilot_database(db_path, transaction_id, expected_sha256=None):
                     (pilot_id,),
                 ).fetchall()
             ]
+
+            # AUDIT-ONLY: explique pourquoi LOCAL+pending_sync est filtre
+            # par normal_pending_transactions(). Aucune ecriture SQLite.
+            result["device_identity"] = {
+                "device_id": conn.execute(
+                    "SELECT valeur FROM config_hybrid WHERE cle='device_id'"
+                ).fetchone()[0] if conn.execute(
+                    "SELECT COUNT(*) FROM config_hybrid WHERE cle='device_id'"
+                ).fetchone()[0] else None,
+                "device_id_legacy": conn.execute(
+                    "SELECT valeur FROM config_hybrid WHERE cle='device_id_legacy'"
+                ).fetchone()[0] if conn.execute(
+                    "SELECT COUNT(*) FROM config_hybrid WHERE cle='device_id_legacy'"
+                ).fetchone()[0] else None,
+                "device_identity_state": conn.execute(
+                    "SELECT valeur FROM config_hybrid WHERE cle='device_identity_state'"
+                ).fetchone()[0] if conn.execute(
+                    "SELECT COUNT(*) FROM config_hybrid WHERE cle='device_identity_state'"
+                ).fetchone()[0] else None,
+                "migration_lock": conn.execute(
+                    "SELECT valeur FROM config_hybrid WHERE cle='migration_lock'"
+                ).fetchone()[0] if conn.execute(
+                    "SELECT COUNT(*) FROM config_hybrid WHERE cle='migration_lock'"
+                ).fetchone()[0] else None,
+            }
+
+            result["normal_pending_audit"] = {
+                "local_pending_total": conn.execute(
+                    """
+                    SELECT COUNT(*)
+                    FROM transactions t
+                    JOIN pending_sync p ON p.transaction_id=t.transaction_id
+                    WHERE t.statut_local='LOCAL'
+                    """
+                ).fetchone()[0],
+                "by_device_id": [
+                    {"device_id": row[0], "count": row[1]}
+                    for row in conn.execute(
+                        """
+                        SELECT COALESCE(t.device_id, '<NULL>'), COUNT(*)
+                        FROM transactions t
+                        JOIN pending_sync p ON p.transaction_id=t.transaction_id
+                        WHERE t.statut_local='LOCAL'
+                        GROUP BY t.device_id
+                        ORDER BY COUNT(*) DESC, COALESCE(t.device_id, '<NULL>')
+                        """
+                    ).fetchall()
+                ],
+                "current_device_matches": 0,
+                "legacy_device_matches": 0,
+                "invalid_transaction_uuid": 0,
+                "invalid_device_uuid": 0,
+            }
+
+            current_device_id = result["device_identity"]["device_id"]
+            legacy_device_id = result["device_identity"]["device_id_legacy"]
+
+            rows = conn.execute(
+                """
+                SELECT t.transaction_id, t.device_id
+                FROM transactions t
+                JOIN pending_sync p ON p.transaction_id=t.transaction_id
+                WHERE t.statut_local='LOCAL'
+                """
+            ).fetchall()
+
+            for tx_id, device_id in rows:
+                if device_id == current_device_id:
+                    result["normal_pending_audit"]["current_device_matches"] += 1
+                if legacy_device_id and device_id == legacy_device_id:
+                    result["normal_pending_audit"]["legacy_device_matches"] += 1
+                if not _is_uuid_v4(tx_id):
+                    result["normal_pending_audit"]["invalid_transaction_uuid"] += 1
+                if not _is_uuid_v4(device_id):
+                    result["normal_pending_audit"]["invalid_device_uuid"] += 1
+
+            result["normal_pending_audit"]["metadata_invalid"] = 0
+            metadata_rows = conn.execute(
+                """
+                SELECT t.transaction_id, t.type_op, t.device_id, t.admin_id,
+                       t.magasin_id, t.magasin_cle, t.horodatage, t.payload
+                FROM transactions t
+                JOIN pending_sync p ON p.transaction_id=t.transaction_id
+                WHERE t.statut_local='LOCAL'
+                """
+            ).fetchall()
+
+            for metadata_row in metadata_rows:
+                if not _normal_sync_metadata_valid(metadata_row):
+                    result["normal_pending_audit"]["metadata_invalid"] += 1
+
+            # AUDIT-ONLY: classification exacte de chaque LOCAL+pending_sync.
+            # Aucune ecriture SQLite et aucun changement de comportement sync.
+            result["normal_pending_audit"]["eligibility"] = {
+                "eligible": 0,
+                "device_mismatch": 0,
+                "legacy_device": 0,
+                "invalid_transaction_uuid": 0,
+                "invalid_device_uuid": 0,
+                "metadata_invalid": 0,
+            }
+
+            metadata_by_tx = {
+                row[0]: row
+                for row in metadata_rows
+            }
+
+            for tx_id, device_id in rows:
+                if not _is_uuid_v4(tx_id):
+                    result["normal_pending_audit"]["eligibility"]["invalid_transaction_uuid"] += 1
+                    continue
+
+                if not _is_uuid_v4(device_id):
+                    result["normal_pending_audit"]["eligibility"]["invalid_device_uuid"] += 1
+                    continue
+
+                if legacy_device_id and device_id == legacy_device_id:
+                    result["normal_pending_audit"]["eligibility"]["legacy_device"] += 1
+                    continue
+
+                if device_id != current_device_id:
+                    result["normal_pending_audit"]["eligibility"]["device_mismatch"] += 1
+                    continue
+
+                metadata_row = metadata_by_tx.get(tx_id)
+                if metadata_row is None or not _normal_sync_metadata_valid(metadata_row):
+                    result["normal_pending_audit"]["eligibility"]["metadata_invalid"] += 1
+                    continue
+
+                result["normal_pending_audit"]["eligibility"]["eligible"] += 1
+
+            result["normal_pending_audit"]["estimated_eligible"] = (
+                result["normal_pending_audit"]["eligibility"]["eligible"]
+            )
+
             result["pilot_join_rows"] = [
                 row[0]
                 for row in conn.execute(
