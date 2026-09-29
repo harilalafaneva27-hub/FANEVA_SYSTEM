@@ -3074,7 +3074,6 @@ def sync_with_http(endpoint, outgoing, local_device_id, conn, timeout=15, api_ke
             missing = sorted(set(expected_hashes) - set(acknowledged_ids))
             if missing:
                 res.erreurs.append("ACK UUID serveur absent ou invalide : " + ", ".join(missing[:3]))
-                return res
             accepted = acknowledged_ids
         else:
             accepted = [tx_id for tx_id in data.get("accepted", [])
