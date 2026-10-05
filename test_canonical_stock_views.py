@@ -60,7 +60,7 @@ class CanonicalStockViewWiringTests(unittest.TestCase):
         exec(compile(ast.Module(body=[function_node], type_ignores=[]), HYBRID_PATH, "exec"), namespace)
         return namespace, calls
 
-    def _sync_with_http_namespace(self, response_payload, replay_result=(0, 0, [])):
+    def _sync_with_http_namespace(self, response_payload, replay_result=(0, 0, []), outgoing=None):
         function_node = next(
             node for node in self.hybrid_tree.body
             if isinstance(node, ast.FunctionDef) and node.name == "sync_with_http"
@@ -117,7 +117,7 @@ class CanonicalStockViewWiringTests(unittest.TestCase):
         try:
             exec(compile(ast.Module(body=[function_node], type_ignores=[]), HYBRID_PATH, "exec"), namespace)
             result = namespace["sync_with_http"](
-                "https://staging.test", [], "f0000000-0000-4000-8000-000000000001", Connection(),
+                "https://staging.test", outgoing or [], "f0000000-0000-4000-8000-000000000001", Connection(),
                 api_key="fsv_synthetic_test_key_123456", sync_cursor={"recu_le": "2026-08-25T23:12:41.050Z", "transaction_id": "f0000000-0000-4000-8000-000000000002"},
                 require_verified_ack=True,
             )
@@ -527,6 +527,24 @@ class CanonicalStockViewWiringTests(unittest.TestCase):
         self.assertEqual(result.ignorees, 0)
         self.assertEqual(calls["mark_synced"], [[]])
         self.assertEqual(calls["cursor"], [None])
+
+    def test_partial_ack_marks_only_verified_transactions_and_preserves_cursor(self):
+        outgoing = [
+            {"transaction_id": "tx-1", "payload": {"q": 1}},
+            {"transaction_id": "tx-2", "payload": {"q": 2}},
+        ]
+        result, calls = self._sync_with_http_namespace(
+            {
+                "transactions": [],
+                "acknowledged": [{"transaction_id": "tx-1", "payload_sha256": "a" * 64}],
+                "next_sync_cursor": {"transaction_id": "cursor-after-tx-2"},
+            },
+            outgoing=outgoing,
+        )
+        self.assertIn("ACK UUID serveur absent ou invalide : tx-2", result.erreurs)
+        self.assertEqual(result.envoyees, 1)
+        self.assertEqual(calls["mark_synced"], [["tx-1"]])
+        self.assertEqual(calls["cursor"], [])
 
     def test_duplicate_remote_replay_remains_idempotent_with_empty_push(self):
         remote = [{"transaction_id": "f0000000-0000-4000-8000-000000000003", "type_op": "VENTE"}]

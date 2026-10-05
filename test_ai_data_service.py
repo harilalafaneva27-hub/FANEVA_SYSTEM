@@ -461,7 +461,7 @@ class AIDataServiceIntegrityTests(unittest.TestCase):
     """Vérifie qu'aucun fichier existant n'a été altéré de façon destructive."""
 
     def test_existing_canonical_tests_still_pass(self):
-        # Exécution réelle des 53 tests existants
+        # Exécution réelle des 54 tests canonical
         import subprocess
         env = os.environ.copy()
         env["PYTHONPATH"] = SOURCE + os.pathsep + env.get("PYTHONPATH", "")
@@ -475,7 +475,7 @@ class AIDataServiceIntegrityTests(unittest.TestCase):
         )
         combined = (result.stdout or "") + "\n" + (result.stderr or "")
         self.assertEqual(result.returncode, 0, msg=combined)
-        self.assertIn("Ran 53 tests", combined)
+        self.assertIn("Ran 54 tests", combined)
         self.assertIn("OK", combined)
 
 

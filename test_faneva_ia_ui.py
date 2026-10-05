@@ -290,7 +290,7 @@ class FanevaIAUINonRegression(unittest.TestCase):
         env = os.environ.copy()
         env["PYTHONPATH"] = SOURCE + os.pathsep + env.get("PYTHONPATH", "")
         for script, expected in (
-            ("test_canonical_stock_views.py", "Ran 53 tests"),
+            ("test_canonical_stock_views.py", "Ran 54 tests"),
             ("test_ai_data_service.py", "Ran 20 tests"),
             ("test_faneva_ia.py", "Ran 15 tests"),
             ("test_faneva_ia_security.py", "Ran 14 tests"),

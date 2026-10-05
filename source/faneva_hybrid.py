@@ -3062,6 +3062,7 @@ def sync_with_http(endpoint, outgoing, local_device_id, conn, timeout=15, api_ke
                 data = json.loads(resp.read().decode("utf-8"))
         _sync_runtime_trace("SYNC_HTTP_RESPONSE", http_status=res.diagnostic["http_status"], transport=res.diagnostic["transport"])
         remote = data.get("transactions", [])
+        ack_complete = True
         if require_verified_ack:
             expected_hashes = {tx["transaction_id"]: _payload_sha256(tx.get("payload", {}))
                                for tx in wire_outgoing}
@@ -3074,6 +3075,7 @@ def sync_with_http(endpoint, outgoing, local_device_id, conn, timeout=15, api_ke
             missing = sorted(set(expected_hashes) - set(acknowledged_ids))
             if missing:
                 res.erreurs.append("ACK UUID serveur absent ou invalide : " + ", ".join(missing[:3]))
+                ack_complete = False
             accepted = acknowledged_ids
         else:
             accepted = [tx_id for tx_id in data.get("accepted", [])
@@ -3092,7 +3094,7 @@ def sync_with_http(endpoint, outgoing, local_device_id, conn, timeout=15, api_ke
                 "Replay distant incomplet : curseur conserve pour retry; transactions a confirmer : " + failed_ids
             )
             return res
-        if require_verified_ack:
+        if require_verified_ack and ack_complete:
             _set_sync_cursor(conn, data.get("next_sync_cursor"))
     except Exception as exc:
         # Distinguer un refus protocolaire du Worker/edge de DNS/TLS sans

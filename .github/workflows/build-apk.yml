@@ -38,7 +38,7 @@ jobs:
       - name: Run FANEVA tests
         run: |
           python -m unittest test_canonical_stock_views.py test_ai_data_service.py test_faneva_ia.py test_faneva_ia_security.py test_faneva_ia_ui.py -v 2>&1 | tee test.log
-          grep -q "Ran 117 tests" test.log
+          grep -q "Ran 118 tests" test.log
           grep -q "^OK" test.log
 
       - name: Prepare Buildozer cache
@@ -82,8 +82,8 @@ jobs:
           printf '%s' "$FANEVA_KEYSTORE_BASE64" | base64 --decode > faneva-release.keystore
           chmod 600 faneva-release.keystore
 
-          ALIGNED_APK="bin/fanevasystem-1.4.9.18-arm64-v8a-release-aligned.apk"
-          SIGNED_APK="bin/fanevasystem-1.4.9.18-arm64-v8a-release-signed.apk"
+          ALIGNED_APK="bin/fanevasystem-1.4.9.19-arm64-v8a-release-aligned.apk"
+          SIGNED_APK="bin/fanevasystem-1.4.9.19-arm64-v8a-release-signed.apk"
 
           "$ZIPALIGN" -p -f 4 "$UNSIGNED_APK" "$ALIGNED_APK"
 
@@ -116,6 +116,6 @@ jobs:
       - name: Upload signed APK
         uses: actions/upload-artifact@v4
         with:
-          name: FANEVA_SYSTEM_1.4.9.18_APK_SIGNED
+          name: FANEVA_SYSTEM_1.4.9.19_APK_SIGNED
           path: bin/*-signed.apk
           if-no-files-found: error
