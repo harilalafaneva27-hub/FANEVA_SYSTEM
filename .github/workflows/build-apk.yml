@@ -38,7 +38,7 @@ jobs:
       - name: Run FANEVA tests
         run: |
           python -m unittest test_canonical_stock_views.py test_ai_data_service.py test_faneva_ia.py test_faneva_ia_security.py test_faneva_ia_ui.py -v 2>&1 | tee test.log
-          grep -q "Ran 118 tests" test.log
+          grep -q "Ran 136 tests" test.log
           grep -q "^OK" test.log
 
       - name: Prepare Buildozer cache
